@@ -1,5 +1,14 @@
 // Users
-function user(state, action){
+const initialUserState = {
+	lastUpdated: 0,
+	info: {
+		name: '',
+		uid: '',
+		avatar: ''
+	}
+}
+
+function user(state = initialUserState, action){
 	switch (action.type){
 		case 'FETCHING_USER_SUCCESS':
 			return {
@@ -12,7 +21,14 @@ function user(state, action){
 	}
 }
 
-function users (state, action){
+const initialState = {
+	isFetching: false,
+	error: '',
+	isAuthed: false,
+	authedId: ''
+}
+
+function users (state = initialState, action){
 	switch (action.type){
 		case 'AUTH_USER':
 			// return Object.assign({}, state, {
