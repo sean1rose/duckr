@@ -1,6 +1,19 @@
 // Users
+function user(state, action){
+	switch (action.type){
+		case 'FETCHING_USER_SUCCESS':
+			return {
+				...state,
+				info: action.user,
+				lastUpdated: action.timestamp
+			}
+		default:
+			return state
+	}
+}
+
 function users (state, action){
-	switch(action.type){
+	switch (action.type){
 		case 'AUTH_USER':
 			// return Object.assign({}, state, {
 			// 	isAuthed: true,
@@ -39,10 +52,15 @@ function users (state, action){
 					...state,
 					isFetching: false,
 					error: '',
-					[action.uid]: {
-						lastUpdated: action.timestamp,
-						info: action.user
-					}
+					// [action.uid]: {
+					// 	lastUpdated: action.timestamp,
+					// 	info: action.user
+					// }
+					// USER COMPOSITION - user func only takes part of the state --> state[action.uid]
+					// only takes a part of the state --> aka the user id property on state tree
+					[action.uid]: user(state[action.uid], action)
 				}
+		default:
+			return state
 	}
 }
