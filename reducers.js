@@ -320,3 +320,30 @@ export default function likeCount(state = initialState, action){
 			return state
 	}
 }
+
+// Users Ducks
+
+const initialState = {
+	isFetching: true,
+	error: ''
+}
+
+export default function usersDucks (state = initialState, action){
+	switch (action.type){
+		case 'FETCHING_USERS_DUCKS':
+			return {
+				...state,
+				isFetching: true
+			}
+		case 'FETCHING_USERS_DUCKS_ERROR':
+			return {
+				...state,
+				isFetching: false,
+				error: action.error
+			}
+		case 'FETCHING_USERS_DUCKS_SUCCESS':
+			return {
+
+			}
+	}
+}
