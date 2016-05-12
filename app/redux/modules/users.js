@@ -24,7 +24,6 @@ dispatch({
 })
 */
 
-
 export function unauthUser () {
   return {
     type: UNAUTH_USER,
