@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Authenticate } from 'components'
-import auth from 'helpers/auth'
+// import auth from 'helpers/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 // import { fetchingUserSuccess, authUser, unauthUser, etc...} from 'redux/modules/users'
@@ -14,24 +14,12 @@ const AuthenticateContainer = React.createClass({
   propTypes: {
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.string.isRequired,
-    authUser: PropTypes.func.isRequired,
-    fetchingUser: PropTypes.func.isRequired,
-    fetchingUserFailure: PropTypes.func.isRequired,
-    fetchingUserSuccess: PropTypes.func.isRequired,
+    fetchAndHandleAuthedUser: PropTypes.func.isRequired,
   },
   handleAuth () {
-    // 1. dispatch fetchingUser action creator -> find action in reducer 'FETCHING_USER' -> that will modify 'isFetching' state to true
-    this.props.fetchingUser()
-    // so now state prop 'isFetching' is set to 'true'
-    auth().then((user) => {
-      // want to inform redux store that we have an authenticated user...
-      console.log('Authed user', user)
-      // 2. dispatch other actions upon success -> updates state by creating new authed user
-      this.props.fetchingUserSuccess(user.uid, user, Date.now())
-      this.props.authUser(user.uid)
-    })
-    .catch((error) => this.props.fetchingUserFailure(error))
-    // SUMMARY: to update state -> dispatch invocation of action creators, which call reducer function via type -> return brand new state
+    this.props.fetchAndHandleAuthedUser()
+    // fetchAndHandleAuthedUser is composed of 4 diff action creators
+    // we've removed logic from container and moved into users.js file using thunk
   },
   render () {
     return (
@@ -66,7 +54,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(AuthenticateContainer)
-// connect returns a function, and that function that returns accepts AuthenticateContainer as its 1st arg
+// connect returns a function, and the function that it returns accepts AuthenticateContainer as its 1st arg
 
 /*
 AuthContainer uses 'isFetching' and 'error'  <--> connect to <--> redux state
