@@ -16,10 +16,16 @@ const AuthenticateContainer = React.createClass({
     error: PropTypes.string.isRequired,
     fetchAndHandleAuthedUser: PropTypes.func.isRequired,
   },
-  handleAuth () {
+  contextTypes: {
+    router: PropTypes.object.isRequired,
+  },
+  handleAuth (e) {
+    e.preventDefault()
     this.props.fetchAndHandleAuthedUser()
-    // fetchAndHandleAuthedUser is composed of 4 diff action creators
+      .then(() => this.context.router.replace('feed'))
+    // fetchAndHandleAuthedUser is composed of 4 diff action creators -> it returns a promise
     // we've removed logic from container and moved into users.js file using thunk
+    // then want to redirect to our new feed route
   },
   render () {
     return (

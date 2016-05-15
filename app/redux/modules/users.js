@@ -1,7 +1,7 @@
 // dux organization method -> combine actions w/ reducer in same file...
 // so everytime user state changes, it happens somewhere in this file
 
-import auth from 'helpers/auth'
+import auth, { logout } from 'helpers/auth'
 
 // define ACTION-TYPES (define first because sometimes want to export these constants so other reducers can use them as well)
 const AUTH_USER = "AUTH_USER"
@@ -77,7 +77,7 @@ export function fetchAndHandleAuthedUser () {
   return function (dispatch) {
     dispatch(fetchingUser())
     // so now state prop 'isFetching' is set to 'true'
-    auth().then((user) => {
+    return auth().then((user) => {
       // want to inform redux store that we have an authenticated user...
       console.log('Authed user', user)
       // 2. dispatch other actions upon success -> updates state by creating new authed user
@@ -85,6 +85,13 @@ export function fetchAndHandleAuthedUser () {
       dispatch(authUser(user.uid))
     })
     .catch((error) => dispatch(fetchingUserFailure(error)))
+  }
+}
+
+export function logoutAndUnauth () {
+  return function (dispatch) {
+    logout()
+    dispatch(unauthUser)
   }
 }
 
