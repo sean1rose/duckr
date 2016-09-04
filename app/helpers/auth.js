@@ -7,6 +7,10 @@ export default function auth () {
   return ref.authWithOAuthPopup('facebook')
 }
 
+// export function checkIfAuthed (store) {
+//   return store.getState().users.isAuthed
+// }
+
 export function checkIfAuthed (store) {
   const authData = ref.getAuth()
   if (authData === null) {

@@ -56,6 +56,11 @@ function mapDispatchToProps (dispatch) {
 // this connects our container to redux store...
 // (1st arg - specifies which part of the state the component needs)
 // 2nd arg - convenience method which allows us to bind dispatch to obj that has action creators on it
+// export default connect(
+//   ({users}) => ({isFetching: users.isFetching. error: users.error}),
+//   (dispatch) => bindActionCreators(userActionCreators, dispatch)
+// )(AuthenticateContainer)
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
