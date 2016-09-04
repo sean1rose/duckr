@@ -27,7 +27,6 @@
 
 /likeCount
   duckId
-    0
 
 /usersDucks
   uid
