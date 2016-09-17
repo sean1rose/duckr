@@ -1,3 +1,5 @@
+// duck action creators...
+
 const FETCHING_DUCK = 'FETCHING_DUCK'
 const FETCHING_DUCK_ERROR = 'FETCHING_DUCK_ERROR'
 const FETCHING_DUCK_SUCCESS = 'FETCHING_DUCK_SUCCESS'
@@ -46,7 +48,7 @@ export function duckFanout (duck) {
 			.then((duckWithID) => {
 				dispatch(addDuck(duckWithID))
 				dispatch(closeModal())
-				dispatch(addSingleUsersDuck, duckWithID.duckID))
+				dispatch(addSingleUsersDuck, duckWithID.duckID)
 			})
 			.catch((err) => {
 				console.warn('Error in duckFanout', err)
