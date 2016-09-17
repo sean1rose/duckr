@@ -1,7 +1,7 @@
 // Saving changes to firebase schema
 // takes in a duck, generate random duckId (using fb) then save the duck (w/ id) to various firebase endpoints
 
-import from { ref } from 'config/constants'
+import { ref } from 'config/constants'
 
 
 // save to ducks endpoint
@@ -30,11 +30,12 @@ function saveToUserDucks (duck, duckId) {
 
 // save to usersLikes endpoint
 function saveLikeCount (duckId) {
-	return ref.child(`likecount/${duckId}`)
+	// whenever create a new duck, keep track of all the likes the specific duck has in likecount endpoint
+	return ref.child(`likeCount/${duckId}`)
 		.set(0)
 }
 
-// wrap the above 4 functions
+// wrap the above 4 asyncronous functions
 function saveDuck (duck) {
 	// we are assuming saveToDucks will return a random duckId for us
 	const { duckId, duckPromise } = saveToDucks(duck)
